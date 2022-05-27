@@ -1,0 +1,67 @@
+*{
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+     font-family: 'Poppins', sans-serif;
+}
+
+body{
+     background-color: #e6f2f2;
+     color: #333;
+}
+
+.container{
+     width: 80%;
+     margin: auto;
+}
+.text_center{
+     text-align: center;
+     color: teal;
+}
+.cards{
+     display: grid;
+     grid-template-columns: repeat(4,1fr);
+     gap: 40px;
+     justify-content: space-between;
+}
+.card{
+     /* background-color: rgba(51, 51, 51, 0.166); */
+     background-color: rgb(255, 255, 255);
+     color: teal;
+     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+     font-size: 18px;
+}
+.card >.image_container{
+     width: 100%;
+}
+.image_container img{
+     width: 100%;
+}
+.text_container{
+     padding: 20px;
+}
+.text_container p{
+     margin-bottom: 6px;
+}
+.card_btns{
+     display: flex;
+     gap: 20px;
+     margin-top: 20px;
+}
+.card_btn{
+     width: 50%;
+     border: none;
+     padding: 5px;
+}
+.btn_sold{
+     background-color: rgba(0, 128, 0, 0.577);
+     color: white;
+     /* color: ; */
+}
+.sold{
+     /* background-color: #e15555; */
+}
+.remove{
+     background-color: #e15555;
+     color: white;
+}

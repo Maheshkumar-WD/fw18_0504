@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+     <style>
+          #form {
+               width: 500px;
+               margin: auto;
+               background-color: rgba(250, 157, 157, 0.125);
+               display: flex;
+               flex-direction: column;
+               align-items: center;
+               padding: 20px;
+          }
+
+          label,
+          input {
+               font-size: 24px;
+          }
+
+          #order {
+               /* display: inline-block; */
+               margin-top: 40px;
+               width: 150px;
+               padding: 6px 8px;
+               background-color: rgb(231, 121, 121);
+               color: white;
+               font-size: 24px;
+               border: 1px solid black;
+               cursor: pointer;
+          }
+
+          .container {
+               display: grid;
+               grid-template-columns: repeat(3, 300px);
+               gap: 20px;
+          }
+
+          img {
+               width: 100%;
+               height: 250px;
+          }
+     </style>
+</head>
+
+<body>
+     <form id="form">
+          <h1>Order Items</h1>
+          <div class="input-group">
+               <input type="checkbox" name="item" id="pizza" class="food" value="pizza">
+               <label for="pizza">Pizza</label>
+
+               <input type="checkbox" name="item" id="burger" class="food" value="burger">
+               <label for="burger">Burger</label>
+
+               <input type="checkbox" name="item" id="biryani" class="food" value="biryani">
+               <label for="biryani">Biryani</label>
+          </div>
+          <button id="order">Order</button>
+     </form>
+
+     <div class="container"></div>
+
+
+
+
+     <script>
+          let orders = {
+               pizza: "https://www.vegrecipesofindia.com/wp-content/uploads/2020/11/pizza-recipe-2-500x375.jpg",
+               burger: "https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4-500x375.jpg",
+               biryani: "https://recipes.timesofindia.com/thumb/msid-54308405,width-1600,height-900/54308405.jpg",
+          }
+
+
+          document.querySelector("#form").addEventListener("submit", order);
+
+          function order() {
+               event.preventDefault();
+               items = form.querySelectorAll('input[type="checkbox"]:checked');
+
+               let o = new Promise(function (resolve, reject) {
+                    time = Math.floor(Math.random() * 5000);
+                    console.log(time);
+                    if (items.length > 0) {
+                         setTimeout(function () {
+                              resolve(items);
+                         }, time)
+                    } else {
+                         reject("Please Select atleast one item");
+                    }
+               });
+               o.then(onFulfiled).catch(onRejected);
+          }
+
+          function onFulfiled(data) {
+               let rand = " OID" + Math.floor(Math.random() * 1000000);
+               id = document.createElement("h1");
+               id.innerText = rand;
+
+               container = document.querySelector(".container");
+               container.append(id);
+
+               data.forEach(function (el) {
+                    container = document.querySelector(".container");
+                    img = document.createElement("img");
+                    img.src = orders[el.value];
+
+                    itemName = document.createElement("p");
+                    itemName.innerText = el.value;
+                    div = document.createElement("div");
+                    div.append(img, itemName);
+                    container.append(div);
+
+               })
+          }
+          function onRejected(err) {
+               alert(err);
+          }
+
+     </script>
+
+
+</body>
+
+</html>

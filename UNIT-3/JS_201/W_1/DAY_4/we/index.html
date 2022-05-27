@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+</head>
+<body>
+     <input type="url" id="url">
+
+     <button id="store">Store Image</button>
+     <button id="slideShow">Slide Show</button>
+
+     <script>
+          let slideData = JSON.parse(localStorage.getItem("SlideData")) || [];
+          document.querySelector("#slideShow").addEventListener("click",showSlides);
+          document.querySelector("#store").addEventListener("click",storeData);
+
+          function showSlides(){
+               window.location = "slideShow.html";
+          }
+          function storeData(){
+               let img = document.querySelector("#url");
+               slideData.push(img.value);
+               localStorage.setItem("SlideData",JSON.stringify(slideData));
+               img.value="";
+          }
+     </script>
+</body>
+</html>

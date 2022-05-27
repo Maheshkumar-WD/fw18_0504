@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+     <style>
+         .container{
+              position: relative;
+              height: 300px;
+              width: 500px;
+         }
+         .container > img{
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background-size: cover;
+         }
+
+     </style>
+</head>
+<body>
+     
+     <div class="container">
+          
+     </div>
+
+     <script>
+          var data = JSON.parse(localStorage.getItem("SlideData"));
+          console.log(data);
+          let container = document.querySelector('.container');
+          imgElem = document.createElement('img');
+          imgElem.classList.add("slideImg");
+          imgElem.setAttribute("id","image--1");
+          imgElem.src = data[0];
+          container.append(imgElem);
+          
+          let i = 1;
+          
+          let slideShow = setInterval(function(){
+               container.innerHTML = null;
+               if(i === data.length){
+                    i = 0;
+               }
+               imgElem = document.createElement('img');
+               imgElem.classList.add("slideImg");
+               imgElem.setAttribute("id",`image--${i+1}`);
+               container.append(imgElem);
+               
+               img = document.querySelector(`#image--${i+1}`);
+               img.src = data[i];
+               i++;
+          },3000);
+          
+               
+     </script>
+</body>
+</html>

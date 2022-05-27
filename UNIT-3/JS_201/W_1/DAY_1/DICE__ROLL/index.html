@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+     <style>
+          .row{
+               width: 500px;
+               margin: auto;
+               display: flex;
+               justify-content: center;
+               flex-wrap: wrap;
+               border: 1px solid;
+          }
+          .col--0{
+               flex:100%;
+               margin-bottom: 20px;
+          }
+          .col--1{
+               max-width: 100%;
+          }
+          .center{
+               text-align: center;               
+          }
+          .col--2{
+               flex:100%;
+               margin-top: 20px;
+          }
+          .member{
+               display: inline-block;
+               border: 1px solid;
+               width: 50px;
+               height: 50px;
+               line-height: 50px;
+               font-size: 20px;
+               font-weight: 800;
+          }
+          .red{
+               background-color: red;
+          }
+          .green{
+               background-color: green;
+          }
+          .yellow{
+               background-color: yellow;
+          }
+
+          
+
+     </style>
+</head>
+<body>
+     <div class="members row">
+          <div class="col col--0 center" id="winner">winner</div>
+          <div class="col col--1">
+               <div id="member-1" class="member center ">1</div>
+               <div id="member-2" class="member center ">2</div>
+               <div id="member-3" class="member center ">3</div>
+          </div>
+          <div class="col col--2 center">
+               <button id="roll">ROLL THE DICE</button>
+          </div>
+     </div>
+
+
+     <script>
+          document.querySelector("#roll").addEventListener("click",function(){
+               let m1 = document.querySelector("#member-1");
+               let m2 = document.querySelector("#member-2");
+               let m3 = document.querySelector("#member-3");
+               let m = document.querySelectorAll(".member");
+               let randNumberMem1 = Math.ceil(Math.random()*((6-1+1)));
+               let randNumberMem2 = Math.ceil(Math.random()*(6-1+1));
+               let randNumberMem3 = Math.ceil(Math.random()*(6-1+1));
+               m1.innerText = randNumberMem1;
+               m2.innerText = randNumberMem2;
+               m3.innerText = randNumberMem3;
+               if(randNumberMem1 ===randNumberMem2 ||randNumberMem1===randNumberMem3||randNumberMem2===randNumberMem3){
+                    console.log(randNumberMem1,randNumberMem2,randNumberMem3);
+                    m.forEach(function(ele){
+                         ele.classList.remove("green");
+                    })
+                    // m1.classList.add('green');
+                    console.log("role the dice again");
+               }else{
+                    console.log(randNumberMem1,randNumberMem2,randNumberMem3);
+                    if(randNumberMem1>randNumberMem2 && randNumberMem1 > randNumberMem3){
+                         console.log("randNumberMem1 is greater");
+                         m.forEach(function(ele){
+                         ele.classList.remove("green");
+                         m1.classList.add("green");
+                    })
+
+                    }else if(randNumberMem2 >randNumberMem1 && randNumberMem2 > randNumberMem3){
+                         console.log("randNumberMem2 is greater");
+                         m.forEach(function(ele){
+                         ele.classList.remove("green");
+                         m2.classList.add("green");
+                    })
+                    }else {
+                         console.log("randNumberMem3 is greater");
+                         m.forEach(function(ele){
+                         ele.classList.remove("green");
+                         m3.classList.add("green");
+                    })
+                    }
+               }
+          })
+
+          
+     </script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <style>
+    #all_products{
+      display: grid;
+      grid-template-columns: repeat(6,1fr);
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .img{
+      width: 100%;
+      height: 300px;
+    }
+    .img img{
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+
+  <body>
+    <div id="navbar">
+      <!--Create Add More Product button here, give id as "add_more_product". avoid making spelling mistakes in HTML id's-->
+      <button id="add_more_product">Add More Product</button>
+    </div>
+    <div id="all_products">
+      <!--append all products data here in grid format-->
+      <div id="product">
+        <div class="img">
+          <img src="https://assets.ajio.com/medias/sys_master/root/20211224/1tuJ/61c4c229aeb26901101a2a6a/-473Wx593H-469034008-black-MODEL.jpg" alt="">
+        </div>
+        <div class="text_container">
+          <p class="type">Foot wear</p>
+          <p class="desc">Puma shoe</p>
+          <p class="price">2000</p>
+        </div>
+      </div>
+      <!-- The Remove Product button will have id as "remove_product" -->
+    </div>
+  </body>
+</html>
+
+<script src="./scripts/inventory.js"></script>

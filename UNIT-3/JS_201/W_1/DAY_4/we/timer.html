@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+</head>
+<body>
+     <h1> <span id="hour"></span>:<span id="min"></span>:<span id="sec"></span></h1>
+
+
+
+
+     <script>
+          let time = 7210;
+
+          let timer = setInterval(function(){
+               let hour = document.querySelector("#hour");
+               let min = document.querySelector("#min");
+               let sec = document.querySelector("#sec");
+
+               let hourT = (Math.floor((time /60)/ 60)).toString().padStart(2,0);
+               let minT = Math.floor((time / 60)%60).toString().padStart(2,0);
+               let secT = (time%60).toString().padStart(2,0);
+               // console.log(typeof minT,typeof secT)
+               console.log( );
+               hour.innerText = hourT
+               min.innerText= minT;
+               sec.innerText = secT;
+               if(time == 0){
+                    clearInterval(timer);
+                    // alert("Time Up !!!")
+               }
+               time--;
+          },1000)
+     </script>
+</body>
+</html>
