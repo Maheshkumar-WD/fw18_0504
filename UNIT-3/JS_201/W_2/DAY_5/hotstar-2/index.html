@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Movies</title>
+     <style>
+          * {
+               padding: 0;
+               margin: 0;
+               box-sizing: border-box;
+               font-family: sans-serif;
+          }
+
+          body {
+               background-color: rgba(241, 109, 109, 0.631);
+          }
+
+          .input-group {
+               width: 500px;
+               margin: auto;
+          }
+
+          #query {
+               width: 100%;
+               padding: 12px;
+               font-size: 18px;
+          }
+
+          .searchRecom {
+               width: 100%;
+               max-height: 300px;
+               height: auto;
+               border: 1px solid gray;
+               overflow-y: auto;
+               background-color: white;
+          }
+
+          .searchRecom p {
+               color: gray;
+               padding: 5px;
+               border-bottom: 1px solid gray;
+          }
+
+          .container {
+               width: 100%;
+               margin-top: 40px;
+          }
+
+          .card {
+               width: 300px;
+               margin: auto;
+               border: 1px solid;
+               border-radius: 20px;
+               background-color: white;
+               padding-bottom: 20px;
+          }
+
+          .imgDiv {
+               width: 100%;
+               height: 300px;
+               border-radius: 20px 20px 0 0;
+               margin-bottom: 10px;
+
+
+          }
+
+          .imgDiv img {
+               width: 100%;
+               height: 100%;
+               border-radius: 20px 20px 0 0;
+          }
+
+          .card h3,
+          .card p {
+               padding-left: 20px;
+               margin-top: 10px;
+
+          }
+     </style>
+
+</head>
+
+<body>
+     <div class="input-group">
+          <input type="text" id="query" placeholder="Search Movie Here" />
+          <div class="searchRecom"></div>
+     </div>
+
+
+     <div class="container"></div>
+
+     <script>
+          let key = "e641ff31e2d9e9c3040eb5e0553c46cf";
+          let q = document.querySelector("#query");
+          let container = document.querySelector(".container");
+          let searchRecom = document.querySelector(".searchRecom");
+          searchRecom.style.display = "none";
+          let setTimer;
+
+          async function showData(q) {
+               let url = `https://api.themoviedb.org/3/search/movie?api_key=${key}&query=${q.split(" ").join("+")}`;
+               try {
+                    let res = await fetch(url);
+                    let result = await res.json();
+                    return result;
+               } catch {
+                    console.log("Movie not found");
+               }
+          }
+
+          function displayData() {
+               searchRecom.innerHTML = null;
+               if (setTimer) {
+                    clearTimeout(setTimer);
+               }
+               setTimer = setTimeout(async function () {
+                    searchRecom.style.display = "block";
+                    let data = await showData(q.value);
+                    data.results.forEach(function (movie, i) {
+                         p = document.createElement('p');
+                         p.innerText = movie.title;
+                         searchRecom.append(p);
+
+                         p.addEventListener("click", function () {
+                              let currMovie = data.results[i];
+                              searchRecom.innerHTML = null;
+                              q.value = "";
+                              displayCard(currMovie);
+                         })
+                    });
+               }, 1000);
+          }
+          q.addEventListener('input', displayData);
+
+
+
+
+
+
+          function displayCard(currMovie) {
+               container.innerHTML = null;
+               let card = document.createElement("div");
+               card.classList.add("card");
+               let imgDiv = document.createElement('div');
+               imgDiv.classList.add("imgDiv");
+               let img = document.createElement("img");
+               console.log(currMovie);
+               let imgUrl;
+               if (currMovie.poster_path) {
+                    imgUrl = `https://image.tmdb.org/t/p/original/${currMovie.poster_path}`;
+               } else {
+
+                    imgUrl = "https://t3.ftcdn.net/jpg/04/62/93/66/360_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg";
+               }
+               img.src = imgUrl;
+               imgDiv.append(img);
+               title = document.createElement('h3');
+               title.innerText = "Title : " + currMovie.title;
+               year = document.createElement("p");
+               year.innerText = "Release Date : " + currMovie.release_date;
+
+               rating = document.createElement('p');
+               rating.innerText = "Rating : " + currMovie.vote_average;
+
+
+
+               card.append(imgDiv, title, year, rating);
+
+               container.append(card)
+
+
+
+          }
+
+
+
+
+
+
+     </script>
+</body>
+
+</html>
