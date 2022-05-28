@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Movies</title>
+     <style>
+          * {
+               padding: 0;
+               margin: 0;
+               box-sizing: border-box;
+          }
+
+          .input-group {
+               width: 500px;
+               margin: auto;
+          }
+
+          #query {
+               width: 100%;
+               padding: 12px;
+               font-size: 18px;
+          }
+
+          .searchRecom {
+               width: 100%;
+               max-height: 300px;
+               height: auto;
+               border: 1px solid gray;
+               overflow-y: auto;
+          }
+
+          .searchRecom p {
+               color: gray;
+               padding: 5px;
+               border-bottom: 1px solid gray;
+          }
+     </style>
+
+</head>
+
+<body>
+     <div class="input-group">
+          <input type="text" id="query" placeholder="Search Movie Here" />
+          <div class="searchRecom"></div>
+     </div>
+
+     <script>
+          let key = "e641ff31e2d9e9c3040eb5e0553c46cf";
+          let q = document.querySelector("#query");
+          let searchRecom = document.querySelector(".searchRecom");
+          searchRecom.style.display = "none";
+          let setTimer;
+
+          async function showData(q) {
+               let url = `https://api.themoviedb.org/3/search/movie?api_key=${key}&query=${q.split(" ").join("+")}`;
+               try {
+                    let res = await fetch(url);
+                    let result = await res.json();
+                    return result;
+               } catch {
+                    console.log("Movie not found");
+               }
+          }
+
+          function displayData() {
+               searchRecom.innerHTML = null;
+               if (setTimer) {
+                    clearTimeout(setTimer);
+               }
+               setTimer = setTimeout(async function () {
+                    searchRecom.style.display = "block";
+                    let data = await showData(q.value);
+                         data.results.forEach(function (movie) {
+                              p = document.createElement('p');
+                              p.innerText = movie.title;
+                              searchRecom.append(p);
+                         });
+               }, 1000);
+          }
+          q.addEventListener('input', displayData);
+
+
+
+
+
+
+     </script>
+</body>
+
+</html>
