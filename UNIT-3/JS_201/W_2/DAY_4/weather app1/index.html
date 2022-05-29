@@ -103,8 +103,8 @@
           }
 
           .weatherBody p span {
-               width: 200px;
-               flex-basis: 3;
+               width: 150px;
+               /* flex-basis: 3; */
           }
 
           .mapContainer {
@@ -218,19 +218,19 @@
                bodyProp.classList.add("weatherProp");
 
                let humid = document.createElement("p");
-               humid.innerHTML = `<span>Humidity</span>: ${data.main.humidity}`;
+               humid.innerHTML = `<span><i class="fa-solid fa-droplet"></i>&nbsp&nbsp Humidity</span>: ${data.main.humidity}`;
                let wind = document.createElement("p");
-               wind.innerHTML = `<span>Wind Speed</span>: ${data.wind.speed}`;
+               wind.innerHTML = `<span><i class="fa-solid fa-wind"></i>&nbsp&nbsp Wind Speed</span>: ${data.wind.speed}`;
                let pressure = document.createElement("p");
-               pressure.innerHTML = `<span>pressure</span>: ${data.main.pressure}`;
+               pressure.innerHTML = `<span><i class="fa-solid fa-down-left-and-up-right-to-center"></i>&nbsp&nbsp pressure</span>: ${data.main.pressure}`;
                let temp = document.createElement('p');
-               temp.innerHTML = `<span>Temperature</span>: ${(Math.ceil(data.main.feels_like - 273.15))}<sup>o</sup>C`;
+               temp.innerHTML = `<span><i class="fa-solid fa-temperature-half"></i>&nbsp&nbsp Temperature</span>: ${(Math.ceil(data.main.feels_like - 273.15))}<sup>o</sup>C`;
 
                let minTem = document.createElement("p");
-               minTem.innerHTML = `<span>Min Temp</span>: ${(Math.ceil(data.main.temp_min - 273.15))}<sup>o</sup>C`;
+               minTem.innerHTML = `<span><i class="fa-solid fa-temperature-low"></i>&nbsp&nbsp Min Temp</span>: ${(Math.ceil(data.main.temp_min - 273.15))}<sup>o</sup>C`;
 
                let maxTem = document.createElement("p");
-               maxTem.innerHTML = `<span>Max Temp</span>: ${(Math.ceil(data.main.temp_max - 273.15))}<sup>o</sup>C`;
+               maxTem.innerHTML = `<span><i class="fa-solid fa-temperature-high"></i>&nbsp&nbsp Max Temp</span>: ${(Math.ceil(data.main.temp_max - 273.15))}<sup>o</sup>C`;
                bodyProp.append(humid, wind, pressure, temp, minTem, maxTem);
 
                body.append(h2, bodyProp);
