@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>StarWar</title>
+
+     <style>
+          * {
+               padding: 0;
+               margin: 0;
+               box-sizing: border-box;
+          }
+
+          .container {
+               width: 300px;
+               margin: auto;
+          }
+
+
+
+          #query {
+               width: 300px;
+               padding: 5px;
+               font-size: 18px;
+
+          }
+
+          #box {
+               width: 300px;
+               max-height: 300px;
+               height: auto;
+               border: 1px solid;
+               margin: auto;
+               overflow-y: auto;
+               display: none;
+          }
+
+          #box div {
+               display: flex;
+               justify-content: space-between;
+               padding: 5px;
+          }
+
+          #box div:not(:last-child) {
+               border-bottom: 2px solid gray;
+          }
+     </style>
+</head>
+
+<body>
+     <div class="container">
+
+          <input type="text" id="query" placeholder="Search Star here">
+          <div id="box"></div>
+     </div>
+
+
+     <script>
+          let q = document.querySelector("#query");
+          let box = document.querySelector("#box");
+          q.addEventListener("input", async function () {
+               try {
+                    let url = `https://swapi.dev/api/people/?search=${this.value}`;
+                    let res = await fetch(url);
+                    let data = await res.json();
+                    displayData(data.results);
+               } catch {
+                    console.log("search Data required");
+               }
+          })
+
+          function displayData(data) {
+               box.innerHTML = null;
+               box.style.display = "block";
+               data.forEach(function (el) {
+                    p = document.createElement('p');
+                    p.innerText = el.name;
+                    gen = document.createElement('p');
+                    gen.innerText = el.gender;
+                    div = document.createElement("div");
+                    div.classList.add('searchRes');
+                    div.append(p, gen);
+                    box.append(div);
+               })
+          }
+
+     </script>
+</body>
+
+</html>
