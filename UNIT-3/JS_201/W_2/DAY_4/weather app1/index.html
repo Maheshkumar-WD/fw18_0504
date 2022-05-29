@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8" />
+     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <title>Weather</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+     <script src="https://kit.fontawesome.com/00ccb11dd5.js" crossorigin="anonymous"></script>
+     <style>
+          * {
+               margin: 0;
+               padding: 0;
+               box-sizing: border-box;
+          }
+
+          body {
+               background-color: rgba(0, 128, 128, 0.343);
+               font-family: sans-serif;
+          }
+
+          .inputContainer {
+               display: inline-block;
+               margin: auto;
+               margin-top: 20px;
+               margin-bottom: 48px;
+               position: relative;
+               right: -50%;
+               transform: translate(-50%);
+               border: 1px solid white;
+          }
+
+          #search {
+               height: 100%;
+               width: 50px;
+               position: absolute;
+               right: 0;
+               border: 0;
+               outline: none;
+               background-color: teal;
+               cursor: pointer;
+          }
+
+          #cityInput {
+               height: 100%;
+               width: 400px;
+               padding: 12px;
+               padding-right: 60px;
+               font-size: 18px;
+               border: 0;
+               outline: none;
+          }
+
+          .container {
+               width: 80%;
+               display: grid;
+               grid-template-columns: 300px 600px;
+               justify-content: space-between;
+               margin: auto;
+          }
+
+          .weatherContainer {
+               height: auto;
+               max-height: 350px;
+          }
+
+          .weather {
+               background-color: white;
+               height: 100%;
+               display: none;
+          }
+
+          .sunRise,
+          .sunSet {
+               display: flex;
+               flex-direction: column;
+               align-items: center;
+
+          }
+
+          .weatherContainer .topDiv {
+               width: 100%;
+               padding: 8px 16px;
+               display: flex;
+               justify-content: space-between;
+          }
+
+          .weatherContainer .weatherBody {
+               margin-top: 20px;
+               display: flex;
+               flex-direction: column;
+               align-items: center;
+               gap: 20px;
+          }
+
+          .weatherBody p {
+               display: block;
+               margin-bottom: 12px;
+               display: flex;
+          }
+
+          .weatherBody p span {
+               width: 200px;
+               flex-basis: 3;
+          }
+
+          .mapContainer {
+               max-height: 500px;
+          }
+
+          .white {
+               stroke: white;
+          }
+
+          .gmap_canvas {
+               overflow: hidden;
+               background: none !important;
+               height: 400px;
+               width: 100%;
+          }
+     </style>
+</head>
+
+<body>
+     <div class="inputContainer">
+          <input type="text" id="cityInput" placeholder="Enter City Here" value="kurnool" />
+          <button id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+     </div>
+     <div class="container">
+          <div class="weatherContainer">
+               <div class="weather"></div>
+          </div>
+          <div class="mapContainer">
+               <div class="mapouter">
+                    <div class="gmap_canvas"><iframe width="100%" height="100%" id="gmap_canvas" frameborder="0"
+                              scrolling="no" marginheight="0" marginwidth="0"></iframe><a
+                              href="https://fmovies-online.net">fmovies</a><br>
+                         <style>
+                              .mapouter {
+                                   position: relative;
+                                   text-align: right;
+                                   height: 100%;
+                                   width: 100%;
+                              }
+                         </style><a href="https://www.embedgooglemap.net">add google maps to html</a>
+                    </div>
+               </div>
+          </div>
+     </div>
+     <script>
+          let weatherContainer = document.querySelector(".weatherContainer");
+          let mapContainer = document.querySelector(".mapContainer");
+          let cityInput = document.querySelector("#cityInput");
+          let searchBtn = document.querySelector("#search");
+          searchBtn.addEventListener("click", searchCity);
+
+          function searchCity() {
+               weatherContainer.firstElementChild.innerHTML = null;
+
+               let q = cityInput.value;
+               const api = "df7e30fc6a297e62ed782a126194f8a2";
+               url = `https://api.openweathermap.org/data/2.5/weather?q=${q}&appid=${api}`;
+               if (q !== "") {
+
+                    fetch(url)
+                         .then(function (res) {
+                              return res.json();
+                         })
+                         .then(function (data) {
+
+                              displayWeather(data);
+                         })
+                         .catch(function (err) {
+                              console.log(err);
+                         });
+               }
+          }
+
+          function displayWeather(data) {
+               weatherContainer.firstElementChild.style.display = "block";
+               // TOP PART
+               let topdiv = document.createElement("div");
+               topdiv.classList.add("topDiv");
+
+               let eleSunRise = document.createElement("p");
+               eleSunRise.classList.add("sunRise");
+               let time = new Date(data.sys.sunrise);
+               let St =
+                    time.getHours().toString().padStart(2, 0) +
+                    ":" +
+                    time.getMinutes().toString().padStart(2, 0) +
+                    ":" +
+                    time.getSeconds().toString().padStart(2, 0) +
+                    "AM";
+               eleSunRise.innerHTML = ` <span><i class="fa-solid fa-sun white"></i> Sunrise </span>${St}`;
+
+               let sunSet = document.createElement("p");
+               sunSet.classList.add("sunSet");
+               time = new Date(data.sys.sunset);
+               St =
+                    time.getHours().toString().padStart(2, 0) +
+                    ":" +
+                    time.getMinutes().toString().padStart(2, 0) +
+                    ":" +
+                    time.getSeconds().toString().padStart(2, 0) +
+                    "PM";
+               sunSet.innerHTML = `<span><i class="fa-regular fa-sun"></i> Sunset </span>${St}`;
+               topdiv.append(eleSunRise, sunSet);
+               // TOP PART END 
+               let body = document.createElement("div");
+               body.classList.add("weatherBody");
+               let h2 = document.createElement("h2");
+               h2.innerText = data.name + ", " + data.sys.country;
+               let bodyProp = document.createElement("div");
+               bodyProp.classList.add("weatherProp");
+
+               let humid = document.createElement("p");
+               humid.innerHTML = `<span>Humidity</span>: ${data.main.humidity}`;
+               let wind = document.createElement("p");
+               wind.innerHTML = `<span>Wind Speed</span>: ${data.wind.speed}`;
+               let pressure = document.createElement("p");
+               pressure.innerHTML = `<span>pressure</span>: ${data.main.pressure}`;
+               let temp = document.createElement('p');
+               temp.innerHTML = `<span>Temperature</span>: ${(Math.ceil(data.main.feels_like - 273.15))}<sup>o</sup>C`;
+
+               let minTem = document.createElement("p");
+               minTem.innerHTML = `<span>Min Temp</span>: ${(Math.ceil(data.main.temp_min - 273.15))}<sup>o</sup>C`;
+
+               let maxTem = document.createElement("p");
+               maxTem.innerHTML = `<span>Max Temp</span>: ${(Math.ceil(data.main.temp_max - 273.15))}<sup>o</sup>C`;
+               bodyProp.append(humid, wind, pressure, temp, minTem, maxTem);
+
+               body.append(h2, bodyProp);
+
+
+               weatherContainer.firstElementChild.append(topdiv, body);
+               displayMap(data.name);
+          }
+
+
+
+          function displayMap(q) {
+               mapContainer.style.border = "2px solid teal";
+               let url = `https://maps.google.com/maps?q=${q}&t=&z=13&ie=UTF8&iwloc=&output=embed`
+               let iframe = document.querySelector("#gmap_canvas");
+               iframe.src = url;
+          }
+     </script>
+</body>
+
+</html>
