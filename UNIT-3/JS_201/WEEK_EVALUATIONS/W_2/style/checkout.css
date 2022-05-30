@@ -1,0 +1,35 @@
+* {
+  font-family: sans-serif;
+}
+form {
+  width: 400px;
+  margin: auto;
+  padding: 20px;
+  background-color: teal;
+}
+.input-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+.input-field label {
+  color: white;
+  font-size: 18px;
+}
+.input-field input:not(input[type="submit"]) {
+  padding: 8px 12px;
+  font-size: 18px;
+}
+#confirm {
+  padding: 6px 12px;
+  background-color: white;
+  border: none;
+  color: teal;
+  font-size: 18px;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+#confirm:hover {
+  background-color: rgba(122, 246, 246, 0.907);
+  color: black;
+}
