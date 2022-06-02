@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Classes</title>
+</head>
+
+<body>
+
+
+     <script>
+
+          class Stack {
+               constructor(s) {
+                    this.s = s; // declaring array length
+                    this.length = 0;
+                    this.obj = {};
+               }
+
+               push(el) {
+                    if (this.length < this.s) {
+                         this.obj[this.length] = el;
+                         this.length++;
+                    } else {
+                         console.log("Limit exceeded");
+                    }
+               }
+
+               pop() {
+                    let last = this.obj[this.length - 1];
+                    delete this.obj[this.length - 1];
+                    this.length--;
+                    return last;
+               }
+
+               top() {
+                    return this.obj[this.length - 1];
+               }
+
+               print() {
+                    console.log(Object.values(this.obj));
+               }
+
+               printReverse() {
+                    arr = Object.values(this.obj)
+                    return arr.reverse();
+               }
+               size() {
+                    return this.length;
+               }
+
+          }
+          let arr = new Stack(6);
+          arr.push('hello');
+          arr.push('world');
+          arr.push('this');
+          arr.push('mahesh');
+          arr.push('web');
+          arr.push('Developer');
+          console.log(arr.pop());
+          console.log(arr.pop());
+          console.log(arr.top());
+          arr.print();
+          arr.pop();
+          console.log(arr.size());
+          console.log((arr.printReverse()));
+     </script>
+</body>
+
+</html>
