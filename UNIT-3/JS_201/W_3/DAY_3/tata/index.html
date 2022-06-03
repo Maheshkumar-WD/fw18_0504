@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+</head>
+
+<body>
+
+
+
+     <script>
+          function Car(m, p) {
+               this.model = m;
+               this.price = p;
+          }
+          let c1 = new Car();
+
+          let c2 = Object.create(c1);
+          c2.name = "Maruthi";
+          c2.model = "M2022";
+          c2.price = 3400000;
+          console.log(c2);
+
+     </script>
+</body>
+
+</html>
