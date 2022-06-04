@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Weather 2</title>
+     <style>
+          * {
+               margin: 0;
+               padding: 0;
+               font-family: sans-serif;
+          }
+
+          body {
+               background-color: rgba(76, 158, 158, 0.513);
+          }
+
+          .heading {
+               text-align: center;
+          }
+
+          #dailyWeather {
+               padding: 20px;
+               display: grid;
+               grid-template-columns: repeat(7, 200px);
+               gap: 20px;
+
+               width: 1200px;
+               margin: auto;
+               overflow-x: auto;
+          }
+
+          .day {
+               display: flex;
+               flex-direction: column;
+               align-items: center;
+               background-color: rgba(5, 5, 5, 0.345);
+               padding: 12px;
+               border-radius: 20px;
+          }
+
+          .day:first-child {
+               background-color: teal;
+               color: white;
+               margin-right: 5px;
+               border-radius: 20px;
+          }
+
+          .weekDay {
+               font-size: 36px;
+          }
+
+          .desc {
+               font-size: 24px;
+               margin-bottom: 6px;
+          }
+
+          .deg {
+               font-size: 18px;
+               font-weight: 600;
+          }
+     </style>
+</head>
+
+<body>
+     <h1 class="heading">Daily Forecast</h1>
+     <div id="dailyWeather">
+
+     </div>
+
+
+
+     <script>
+          let dailyWeather = document.getElementById("dailyWeather");
+
+          function getData(lat, lon) {
+               let api = "df7e30fc6a297e62ed782a126194f8a2";
+               let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&appid=${api}`;
+               // let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&appid=${api}`;
+               fetch(url).then(function (res) {
+                    return res.json();
+               }).then(function (data) {
+                    console.log(data);
+                    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+                    data.daily.forEach(function (day, i) {
+                         if (i == 7) {
+                              return false;
+                         }
+                         console.log(day);
+
+                         let dayWeather = document.createElement("div");
+                         dayWeather.classList.add("day");
+
+                         let wd = document.createElement("h2");
+                         weekDay = new Date(day.dt * 1000).getDay();
+                         wd.classList.add("weekDay");
+                         // condition1 ? true_expression1 : condition2 ? true_expression2 : else_expression2
+                         wd.innerText = i == 0 ? "Today" : i == 1 ? "Tomorrow" : days[weekDay];
+
+                         let desc = document.createElement("p");
+                         desc.classList.add("desc");
+
+                         desc.innerText = day.weather[0].description;
+                         icon = document.createElement("img");
+                         icon.src = "http://openweathermap.org/img/wn/" + day.weather[0].icon + "@2x.png";
+                         deg = document.createElement("span");
+                         deg.classList.add("deg");
+                         deg.innerHTML = (day.feels_like.day - 273.15).toFixed(2) + "&deg;C";
+                         dayWeather.append(wd, icon, desc, deg);
+                         dailyWeather.append(dayWeather);
+                    })
+
+
+               });
+
+               // console.log(result)
+          }
+
+          function success(pos) {
+               let crd = pos.coords;
+               let lat = crd.latitude;
+               let lon = crd.longitude;
+               getData(lat, lon);
+          }
+          navigator.geolocation.getCurrentPosition(success);
+
+     </script>
+</body>
+
+</html>
