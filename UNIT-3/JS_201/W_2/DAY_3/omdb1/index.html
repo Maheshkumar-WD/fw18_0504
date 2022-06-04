@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+     <style>
+          * {
+               margin: 0;
+               padding: 0;
+               box-sizing: border-box;
+          }
+
+          .input-group {
+
+               width: 500px;
+               margin: auto;
+               margin-top: 20px;
+          }
+
+          .input-group #search {
+               padding: 6px 14px;
+               width: 100%;
+               outline: none;
+          }
+
+          .input-group #result {
+               display: none;
+               width: 100%;
+               height: auto;
+               max-height: 500px;
+               box-shadow: 0px 0px 5px gray;
+               padding: 2px;
+          }
+
+          .input-group #result p:not(:last-child) {
+               border-bottom: 1px solid;
+          }
+
+          .input-group #result p:hover {
+               background-color: gray;
+               color: white;
+               cursor: pointer;
+          }
+     </style>
+</head>
+
+<body>
+     <div class="input-group">
+          <input type="text" name="search" id="search" placeholder="Search Movie Here">
+          <div id="result"></div>
+     </div>
+
+
+
+     <script>
+          let search = document.getElementById("search");
+          let result = document.getElementById("result");
+
+          search.addEventListener("input", fetchData);
+
+          function fetchData() {
+               s = this.value;
+               url = `https://www.omdbapi.com/?s=${s}&apikey=c8e975de`;
+
+               fetch(url).then(function (res) {
+                    return res.json();
+               }).then(function (data) {
+                    result.style.display = "block";
+                    console.log(data);
+                    if (data.Response == "True") {
+                         result.innerHTML = null;
+                         data.Search.forEach(function (movie) {
+                              result.innerHTML += `<p> ${movie.Title} </p>`;
+                         })
+                    } else {
+                         result.innerHTML = null;
+                         result.innerHTML = "<p style='text-align:center'>-No movie not found-</p>";
+                    }
+                    if (search.value.length == 0) {
+                         result.style.display = "none";
+                    }
+               }).catch(function (error) {
+                    console.log(error)
+               })
+          }
+
+     </script>
+</body>
+
+</html>
