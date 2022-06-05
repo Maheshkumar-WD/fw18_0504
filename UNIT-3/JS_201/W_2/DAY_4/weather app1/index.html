@@ -187,26 +187,14 @@
 
                let eleSunRise = document.createElement("p");
                eleSunRise.classList.add("sunRise");
-               let time = new Date(data.sys.sunrise);
-               let St =
-                    time.getHours().toString().padStart(2, 0) +
-                    ":" +
-                    time.getMinutes().toString().padStart(2, 0) +
-                    ":" +
-                    time.getSeconds().toString().padStart(2, 0) +
-                    "AM";
+               let time = new Date(data.sys.sunrise * 1000);
+               let St = time.toLocaleTimeString();
                eleSunRise.innerHTML = ` <span><i class="fa-solid fa-sun white"></i> Sunrise </span>${St}`;
 
                let sunSet = document.createElement("p");
                sunSet.classList.add("sunSet");
-               time = new Date(data.sys.sunset);
-               St =
-                    time.getHours().toString().padStart(2, 0) +
-                    ":" +
-                    time.getMinutes().toString().padStart(2, 0) +
-                    ":" +
-                    time.getSeconds().toString().padStart(2, 0) +
-                    "PM";
+               time = new Date(data.sys.sunset * 1000);
+               St = time.toLocaleTimeString();
                sunSet.innerHTML = `<span><i class="fa-regular fa-sun"></i> Sunset </span>${St}`;
                topdiv.append(eleSunRise, sunSet);
                // TOP PART END 
