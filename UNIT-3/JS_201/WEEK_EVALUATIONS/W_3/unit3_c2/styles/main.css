@@ -1,0 +1,22 @@
+#navbar {
+  text-align: center;
+}
+#navbar a {
+  text-decoration: none;
+  color: white;
+  background-color: teal;
+  padding: 5px;
+}
+#form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin: 20px auto;
+  padding: 12px;
+  background-color: teal;
+}
+#form input {
+  padding: 8px 16px;
+  font-size: 18px;
+  margin-bottom: 5px;
+}

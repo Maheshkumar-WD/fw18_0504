@@ -1,0 +1,35 @@
+#wallet_balance {
+  font-size: 18px;
+  background-color: teal;
+  color: white;
+  font-weight: bold;
+  padding: 12px;
+  display: inline-block;
+}
+#voucher_list {
+  display: grid;
+  grid-template-columns: repeat(4, 300px);
+  gap: 20px;
+  justify-content: center;
+}
+.voucher {
+  padding: 5px;
+  background-color: teal;
+  color: white;
+}
+.imgDiv {
+  width: 100%;
+  height: 300px;
+}
+.imgDiv img {
+  width: 100%;
+  height: 100%;
+}
+.purchaselink {
+  padding: 5px;
+  background-color: teal;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  align-items: right;
+}
