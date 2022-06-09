@@ -1,0 +1,84 @@
+/* navbar styling */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+#navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 5%;
+  box-shadow: 2px 2px 5px #ddd;
+}
+
+#logo {
+  font-family: cursive;
+  color: orangered;
+  font-size: 34px;
+}
+
+#searchBox-group {
+  width: 400px;
+  margin-top: 20px;
+  height: 35px;
+  display: inline;
+  position: relative;
+  border: 1px solid;
+}
+
+.search {
+  left: 0;
+  outline: none;
+  padding: 4px;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  padding-left: 20px;
+  padding-right: 80px;
+}
+#searchResult {
+  background-color: #ffe6dd;
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  display: none;
+  overflow-y: auto;
+  box-shadow: 0 0 5px #333;
+}
+.sRes {
+  border-bottom: 1px solid #333;
+  padding-left: 20px;
+}
+
+.searchBtn {
+  position: absolute;
+  height: 100%;
+  right: 0;
+  padding: 4px;
+  border: 0;
+  background-color: #ffdacc;
+  font-weight: 600;
+}
+
+#navlinks .link {
+  padding: 8px;
+  text-decoration: none;
+  color: #333;
+  font-size: 18px;
+  line-height: 50%;
+}
+
+#navlinks .login {
+  margin-left: 15px;
+}
+
+#navlinks .link:hover {
+  color: orangered;
+}
+
+/* navbar styling end */
