@@ -18,6 +18,7 @@
                width: 500px;
                margin: auto;
                margin-top: 20px;
+               margin-bottom: 20px;
           }
 
           .input-group #search {
@@ -26,23 +27,28 @@
                outline: none;
           }
 
-          .input-group #result {
+          #cards {
                display: none;
                width: 100%;
                height: auto;
-               max-height: 500px;
-               box-shadow: 0px 0px 5px gray;
                padding: 2px;
+               grid-template-columns: repeat(5, 1fr);
+               gap: 40px;
           }
 
-          .input-group #result p:not(:last-child) {
-               border-bottom: 1px solid;
+          .card {
+               box-shadow: 0px 0px 5px #ccc;
           }
 
-          .input-group #result p:hover {
-               background-color: gray;
-               color: white;
-               cursor: pointer;
+          .imgDiv {
+               width: 100%;
+               height: 300px;
+               margin-bottom: 20px;
+          }
+
+          .imgDiv img {
+               width: 100%;
+               height: 100%;
           }
      </style>
 </head>
@@ -50,14 +56,14 @@
 <body>
      <div class="input-group">
           <input type="text" name="search" id="search" placeholder="Search Movie Here">
-          <div id="result"></div>
      </div>
+     <div id="cards"></div>
 
 
 
      <script>
           let search = document.getElementById("search");
-          let result = document.getElementById("result");
+          let cards = document.getElementById("cards");
 
           search.addEventListener("input", fetchData);
 
@@ -68,23 +74,36 @@
                fetch(url).then(function (res) {
                     return res.json();
                }).then(function (data) {
-                    result.style.display = "block";
+                    cards.style.display = "grid";
                     console.log(data);
                     if (data.Response == "True") {
-                         result.innerHTML = null;
+                         cards.innerHTML = null;
                          data.Search.forEach(function (movie) {
-                              result.innerHTML += `<p> ${movie.Title} </p>`;
+                              let card = document.createElement("div");
+
+                              card.classList.add("card")
+                              let html = `<div class="imgDiv">
+                                             <img src=${movie.Poster != "N/A" ? movie.Poster : "https://isocarp.org/app/uploads/2014/05/noimage.jpg"}>
+                                        </div>
+                                        <h3>${movie.Title}</h3>
+                                        <p>${movie.Year}</p>
+                                        `
+                              card.innerHTML = html;
+                              cards.append(card);
                          })
                     } else {
-                         result.innerHTML = null;
-                         result.innerHTML = "<p style='text-align:center'>-No movie not found-</p>";
+                         cards.innerHTML = null;
                     }
                     if (search.value.length == 0) {
-                         result.style.display = "none";
+                         cards.style.display = "none";
                     }
                }).catch(function (error) {
-                    console.log(error)
+                    console.log(error);
                })
+          }
+
+          function card(el) {
+
           }
 
      </script>
