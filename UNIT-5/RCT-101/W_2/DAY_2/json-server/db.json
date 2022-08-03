@@ -1,0 +1,17 @@
+{
+  "todos": [
+    {
+      "id": 1659555796831,
+      "text": "Learning react"
+    },
+    {
+      "id": 1659555811100,
+      "text": "Learn Node js for next unit"
+    },
+    {
+      "id": 1659555823019,
+      "text": "learn DSA"
+    }
+  ],
+  "users": []
+}
